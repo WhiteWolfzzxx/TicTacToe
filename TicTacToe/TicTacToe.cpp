@@ -10,6 +10,14 @@ int main()
 	//==================INITILIZE=====================//
 	sf::Vector2i screenSize(800, 600);
 	sf::RenderWindow window(sf::VideoMode(screenSize.x,screenSize.y), "TicTacToe!");
+	//Texture loading
+	sf::Texture gameBoardTexture;
+	if (!gameBoardTexture.loadFromFile("Textures/GameBoard.png")) { std::cout << "Loading game board texture failed" << std::endl;  }
+	
+	//Sprite loading
+	sf::Sprite gameBoardSprite(gameBoardTexture);
+
+	//Example ball experiment
 	sf::Texture ballTexture;
 	sf::Sprite ballSprite;
 	sf::Vector2f ballVelocity;
@@ -25,6 +33,8 @@ int main()
         while (window.pollEvent(event)) { if (event.type == sf::Event::Closed) window.close(); }
 		//Update stuff here
 
+
+#pragma region BallUpdate
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
 		{
 			ballVelocity.x += 0.001;
@@ -57,10 +67,13 @@ int main()
 		if (ballSprite.getPosition().y > screenSize.y)
 			ballVelocity = sf::Vector2f(ballVelocity.x, -ballVelocity.y);
 		ballSprite.move(ballVelocity);
-
+#pragma endregion
 	//==================GAME DRAW=====================//
         window.clear();
 		//Draw stuff here
+		window.draw(gameBoardSprite);
+
+		//example ball
 		window.draw(ballSprite);
        
         window.display();
