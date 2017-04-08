@@ -163,6 +163,9 @@
     </ClCompile>
     <ClCompile Include="TicTacToe.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Textures\Ball.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
