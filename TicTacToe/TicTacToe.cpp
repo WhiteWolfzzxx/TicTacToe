@@ -13,10 +13,10 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(screenSize.x, screenSize.y), "TicTacToe!");
 
 	//Varables
-	const sf::Vector2i ajustmentPosition(160,75);
-	const int placementWidth = 180;
-
-
+	const sf::Vector2i ajustmentPosition(160,75);	//Start upper left corner of grid positioning
+	const int placementWidth = 180;		//number of pixels between each x grid in vertical and horazontal
+	sf::Vector2i XOPositions[3][3];		//Holds positions of the XO Grid for bounding boxes
+	int displayXO[3][3] = { 0 };	// 0 = Display Nothing, 1 = dispaly x, 2 = display O
 	
 	//Texture loading
 	sf::Texture gameBoardTexture;
@@ -31,12 +31,12 @@ int main()
 	sf::Sprite OSprite[3][3];
 	sf::Sprite XSprite[3][3];
 
-	//Postion array
+	//Postion array for sprites and bounding boxes of the game grid
 	for (int x = 0; x < 3; x++)
 	{
 		for (int y = 0; y < 3; y++)
 		{
-			//XOPositons[x][y] = sf::Vector2i(ajustmentPosition.x + placementWidth * x, ajustmentPosition.y + placementWidth * y);
+			XOPositions[x][y] = sf::Vector2i(ajustmentPosition.x + placementWidth * x, ajustmentPosition.y + placementWidth * y);
 			OSprite[x][y].setTexture(OTexture);
 			XSprite[x][y].setTexture(XTexture);
 			OSprite[x][y].setPosition(ajustmentPosition.x + placementWidth * x, ajustmentPosition.y + placementWidth * y);
@@ -100,12 +100,18 @@ int main()
 		//Draw stuff here
 		window.draw(gameBoardSprite);
 
-		//Draw X
+		displayXO[0][0] = 1;
+		displayXO[1][0] = 2;
+
+		//Draw X's and O's or nothing
 		for (int x = 0; x < 3; x++)
 		{
 			for (int y = 0; y < 3; y++)
 			{
-				window.draw(OSprite[x][y]);
+				if (displayXO[x][y] == 1)
+					window.draw(XSprite[x][y]);
+				if (displayXO[x][y] == 2)
+					window.draw(OSprite[x][y]);
 			}
 		}
 
