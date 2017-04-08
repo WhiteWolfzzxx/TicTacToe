@@ -17,6 +17,7 @@ int main()
 	const int placementWidth = 180;		//number of pixels between each x grid in vertical and horazontal
 	sf::Vector2i XOPositions[3][3];		//Holds positions of the XO Grid for bounding boxes
 	int displayXO[3][3] = { 0 };	// 0 = Display Nothing, 1 = dispaly x, 2 = display O
+	sf::Vector2i mousePosition;
 	
 	//Texture loading
 	sf::Texture gameBoardTexture;
@@ -59,7 +60,9 @@ int main()
         sf::Event event;
         while (window.pollEvent(event)) { if (event.type == sf::Event::Closed) window.close(); }
 		//Update stuff here
+		mousePosition = sf::Mouse::getPosition(window);	//Sets current mouse position
 
+		std::cout << mousePosition.x << " " << mousePosition.y << std::endl;
 
 #pragma region BallUpdate
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
