@@ -166,6 +166,8 @@
   <ItemGroup>
     <Image Include="Textures\Ball.png" />
     <Image Include="Textures\GameBoard.png" />
+    <Image Include="Textures\O.png" />
+    <Image Include="Textures\X.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

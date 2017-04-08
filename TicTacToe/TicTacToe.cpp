@@ -8,14 +8,41 @@
 int main()
 {
 	//==================INITILIZE=====================//
+	//Render Window
 	sf::Vector2i screenSize(800, 600);
-	sf::RenderWindow window(sf::VideoMode(screenSize.x,screenSize.y), "TicTacToe!");
+	sf::RenderWindow window(sf::VideoMode(screenSize.x, screenSize.y), "TicTacToe!");
+
+	//Varables
+	const sf::Vector2i ajustmentPosition(160,75);
+	const int placementWidth = 180;
+
+
+	
 	//Texture loading
 	sf::Texture gameBoardTexture;
-	if (!gameBoardTexture.loadFromFile("Textures/GameBoard.png")) { std::cout << "Loading game board texture failed" << std::endl;  }
-	
+	if (!gameBoardTexture.loadFromFile("Textures/GameBoard.png")) { std::cout << "Loading game board texture failed" << std::endl; }
+	sf::Texture XTexture;
+	if (!XTexture.loadFromFile("Textures/X.png")) { std::cout << "Loading X texture failed" << std::endl; }
+	sf::Texture OTexture;
+	if (!OTexture.loadFromFile("Textures/O.png")) { std::cout << "Loading O texture failed" << std::endl; }
+
 	//Sprite loading
 	sf::Sprite gameBoardSprite(gameBoardTexture);
+	sf::Sprite OSprite[3][3];
+	sf::Sprite XSprite[3][3];
+
+	//Postion array
+	for (int x = 0; x < 3; x++)
+	{
+		for (int y = 0; y < 3; y++)
+		{
+			//XOPositons[x][y] = sf::Vector2i(ajustmentPosition.x + placementWidth * x, ajustmentPosition.y + placementWidth * y);
+			OSprite[x][y].setTexture(OTexture);
+			XSprite[x][y].setTexture(XTexture);
+			OSprite[x][y].setPosition(ajustmentPosition.x + placementWidth * x, ajustmentPosition.y + placementWidth * y);
+			XSprite[x][y].setPosition(ajustmentPosition.x + placementWidth * x, ajustmentPosition.y + placementWidth * y);
+		}
+	}
 
 	//Example ball experiment
 	sf::Texture ballTexture;
@@ -72,6 +99,15 @@ int main()
         window.clear();
 		//Draw stuff here
 		window.draw(gameBoardSprite);
+
+		//Draw X
+		for (int x = 0; x < 3; x++)
+		{
+			for (int y = 0; y < 3; y++)
+			{
+				window.draw(OSprite[x][y]);
+			}
+		}
 
 		//example ball
 		window.draw(ballSprite);

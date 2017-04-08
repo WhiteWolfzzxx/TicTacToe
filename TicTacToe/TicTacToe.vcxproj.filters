@@ -43,5 +43,11 @@
     <Image Include="Textures\GameBoard.png">
       <Filter>Resource Files\Textures</Filter>
     </Image>
+    <Image Include="Textures\O.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
+    <Image Include="Textures\X.png">
+      <Filter>Resource Files\Textures</Filter>
+    </Image>
   </ItemGroup>
 </Project>
