@@ -15,9 +15,10 @@ int main()
 	//Varables
 	const sf::Vector2i ajustmentPosition(160,75);	//Start upper left corner of grid positioning
 	const int placementWidth = 180;		//number of pixels between each x grid in vertical and horazontal
-	sf::Vector2i XOPositions[3][3];		//Holds positions of the XO Grid for bounding boxes
+	//sf::Vector2i XOPositions[3][3];		//Holds positions of the XO Grid for bounding boxes
 	int displayXO[3][3] = { 0 };	// 0 = Display Nothing, 1 = dispaly x, 2 = display O
 	sf::Vector2i mousePosition;
+	sf::IntRect gridBoundingBoxs[3][3];
 	
 	//Texture loading
 	sf::Texture gameBoardTexture;
@@ -37,11 +38,14 @@ int main()
 	{
 		for (int y = 0; y < 3; y++)
 		{
-			XOPositions[x][y] = sf::Vector2i(ajustmentPosition.x + placementWidth * x, ajustmentPosition.y + placementWidth * y);
+			//Positions
+			//XOPositions[x][y] = sf::Vector2i(ajustmentPosition.x + placementWidth * x, ajustmentPosition.y + placementWidth * y);
 			OSprite[x][y].setTexture(OTexture);
 			XSprite[x][y].setTexture(XTexture);
 			OSprite[x][y].setPosition(ajustmentPosition.x + placementWidth * x, ajustmentPosition.y + placementWidth * y);
 			XSprite[x][y].setPosition(ajustmentPosition.x + placementWidth * x, ajustmentPosition.y + placementWidth * y);
+			//Bounding Boxs
+			gridBoundingBoxs[x][y] = sf::IntRect(sf::Vector2i(ajustmentPosition.x + placementWidth * x, ajustmentPosition.y + placementWidth * y),sf::Vector2i(placementWidth, placementWidth));
 		}
 	}
 
@@ -61,6 +65,16 @@ int main()
         while (window.pollEvent(event)) { if (event.type == sf::Event::Closed) window.close(); }
 		//Update stuff here
 		mousePosition = sf::Mouse::getPosition(window);	//Sets current mouse position
+
+		//Bounding box collision with mouse
+		for (int x = 0; x < 3; x++)
+		{
+			for (int y = 0; y < 3; y++)
+			{
+				if (gridBoundingBoxs[x][y].contains(mousePosition) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+					displayXO[x][y] = 1;	//display x when player clicks in grid location
+			}
+		}
 
 		std::cout << mousePosition.x << " " << mousePosition.y << std::endl;
 
@@ -102,9 +116,6 @@ int main()
         window.clear();
 		//Draw stuff here
 		window.draw(gameBoardSprite);
-
-		displayXO[0][0] = 1;
-		displayXO[1][0] = 2;
 
 		//Draw X's and O's or nothing
 		for (int x = 0; x < 3; x++)
