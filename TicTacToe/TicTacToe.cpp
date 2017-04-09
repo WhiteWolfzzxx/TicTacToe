@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include "ComputerAI.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
@@ -71,12 +72,15 @@ int main()
 		{
 			for (int y = 0; y < 3; y++)
 			{
-				if (gridBoundingBoxs[x][y].contains(mousePosition) && sf::Mouse::isButtonPressed(sf::Mouse::Left))
+				if (gridBoundingBoxs[x][y].contains(mousePosition) && sf::Mouse::isButtonPressed(sf::Mouse::Left) && displayXO[x][y] == 0)
+				{
 					displayXO[x][y] = 1;	//display x when player clicks in grid location
+					easyComputerAI(displayXO);
+				}
 			}
 		}
 
-		std::cout << mousePosition.x << " " << mousePosition.y << std::endl;
+		
 
 #pragma region BallUpdate
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
