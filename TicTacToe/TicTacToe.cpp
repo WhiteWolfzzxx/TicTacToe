@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "ComputerAI.h"
+#include "WinLossDetection.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
@@ -80,6 +81,14 @@ int main()
 			}
 		}
 
+		//GameOver Detection
+		if (gameOver(displayXO) == 1)
+			std::cout << "X wins!" << std::endl;
+		if (gameOver(displayXO) == 2)
+			std::cout << "O wins!" << std::endl;
+		if (gameOver(displayXO) == 3)
+			std::cout << "Everyone lost :(" << std::endl;
+		
 		
 
 #pragma region BallUpdate
